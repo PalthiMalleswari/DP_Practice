@@ -9,7 +9,9 @@ Output: true
 Explanation: The array can be partitioned as [1, 5, 5] and [11].
 
 """
-
+"""
+dp[ind][tareget] denotes that, is there exist a subset with sum = target from 0 to ind
+"""
 def canPartition(self, nums: List[int]) -> bool:
 
     s = sum(nums)
