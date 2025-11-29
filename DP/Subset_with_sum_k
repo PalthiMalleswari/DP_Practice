@@ -123,4 +123,37 @@ Space Complexity: O(K)
 
 Reason: We are using an external array of size ‘K+1’ to store only one row.
 
+#### Edge Case
+
+"""
+arr = [0,0,1]
+by above method ans = 1 [1]
+but by meaning it should be 4 [0,0,1],[0,1],[0,1],[1]
+In,Above Method only works when 1<=arr[i]<1000
+if arr[i] also contains zero then we have two approaches
+
+Approach 1:
+
+1. Count no.of zeros and mulitply with no.of ways we can arrange those zeros to final ans
+Example: above method ans = 1
+no of ways to arrange n zeros = 2^n (2*2=4)
+so final ans = 1*4 = 4
+
+Approach 2:
+2. Modify the base case
+for ind = 0, if arr[0] = 0 then if we take or not take, there no change in target sum so it has two possibilities so return 2
+other condition if arr[0] = x and targetSum = x or target = 0 return 1
+
+if ind == 0:
+
+    if arr[ind] == 0: return 2
+    if targetsum == 0 or targetsum == arr[0]: return 1
+    return 0
+
+remove targetSum = 0 Base case
+
+if ind == 0:
+
+"""
+
 
