@@ -1,2 +1,2 @@
-# DS-Algo
-Practice Data Structures and Algorithms 
+# DP Practice
+Practice Dynamic Programming Patterns 
