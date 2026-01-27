@@ -1,4 +1,4 @@
-# Problem - 
+# Problem - https://leetcode.com/problems/count-good-numbers/
 
 # ==============  Approach 1 ===========
 
