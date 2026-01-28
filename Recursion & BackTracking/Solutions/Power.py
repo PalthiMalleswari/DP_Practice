@@ -61,5 +61,28 @@ class Solution:
 Time Complexity - O(log N)
 Space Complexity - O(1)
 
+# ============== If n is negative and x is float ====================
 
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        
+        ans = self.power(x,abs(n))
+        if n<0:
+            ans = 1/float(ans) 
+        return ans
+    
+    def power(self,x,n):
+
+        res = 1
+
+        while n>0:
+
+            if n&1:
+                res*=x
+        
+            x = float(x*x)
+            n >>= 1
+        return float(res)
+    
+        
 
