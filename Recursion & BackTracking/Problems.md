@@ -15,3 +15,5 @@
 - https://leetcode.com/problems/word-break/description/
 - https://leetcode.com/problems/sudoku-solver/description/
 - https://leetcode.com/problems/expression-add-operators/description/
+- https://leetcode.com/problems/word-search/description/
+- https://leetcode.com/problems/sort-an-array/description/
