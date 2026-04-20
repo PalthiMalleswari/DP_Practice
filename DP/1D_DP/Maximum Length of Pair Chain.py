@@ -47,6 +47,80 @@ class Solution:
             return max(take, not_take)
         return dfs(1)
 
-
 Time Complexity - O(2^N)
 Space Complexity - O(N) Recursion Call Stack
+
+# ============= Memorization ==================
+If we use States as (index,prev_end) prev_end should be Max(Nums) Which wastes lot of memory So Optimal State selection is (index,prev_index) 
+
+class Solution:
+    def findLongestChain(self, pairs: List[List[int]]) -> int:
+    
+        pairs = sorted(pairs,key =lambda tup:tup[0])
+        n = len(pairs)
+        memo = {}
+        
+        def find_max_len(ind,prev_ind):
+            if ind >= n:
+                return 0
+            
+            if (ind,prev_ind) in memo:
+                return memo[(ind,prev_ind)]
+
+            ans = 0
+            for i in range(ind,n):
+                
+                if prev_ind == -1 or pairs[prev_ind][1] < pairs[i][0]:
+                    
+                    ans = max(ans,find_max_len(i+1,i)+1)
+
+            memo[(ind,prev_ind)] = ans
+            return ans
+            
+        return find_max_len(0,-1)
+        
+#============ Different Way Of Memorization =======
+
+class Solution:
+    def findLongestChain(self, pairs: List[List[int]]) -> int:
+    
+        pairs = sorted(pairs,key =lambda tup:tup[0])
+        n = len(pairs)
+        memo = {}
+        from functools import lru_cache
+        @lru_cache(None)
+        
+        def find_max_len(ind,prev_ind):
+            if ind >= n:
+                return 0
+            
+            ans = 0
+            for i in range(ind,n):
+                
+                if prev_ind == -1 or pairs[prev_ind][1] < pairs[i][0]:
+                    
+                    ans = max(ans,find_max_len(i+1,i)+1)
+                   
+            return ans
+        return find_max_len(0,-1)
+
+Time Complexity - O(N*N)
+Space Complexity - O(N*N(Memorization)+N(Recursion Stack Space))
+
+# ==================== Bottom Up ==============
+
+class Solution:
+    def findLongestChain(self, pairs: List[List[int]]) -> int:
+        
+        pairs.sort()
+        n = len(pairs)
+        dp = [1]*n
+
+        for i in range(1,n):
+            for j in range(i):
+                if pairs[j][1] < pairs[i][0]:
+                    dp[i] = max(dp[i],dp[j]+1)
+        return dp[n-1]
+        
+Time Complexity - O(N*N)
+Space Complexity - O(N)
