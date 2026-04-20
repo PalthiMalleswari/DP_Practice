@@ -120,7 +120,26 @@ class Solution:
             for j in range(i):
                 if pairs[j][1] < pairs[i][0]:
                     dp[i] = max(dp[i],dp[j]+1)
-        return dp[n-1]
+        return dp[n-1 (We can return  max(dp))
         
 Time Complexity - O(N*N)
 Space Complexity - O(N)
+
+#============ Optimal Solution (Greedy) =================
+
+class Solution:
+    def findLongestChain(self, pairs: List[List[int]]) -> int:
+        
+        pairs.sort(key=lambda x: x[1])
+        n = len(pairs)
+        count = 1
+        prev_end = pairs[0][1]
+
+        for i in range(1,n):
+            if prev_end <pairs[i][0]:
+                count += 1
+                prev_end = pairs[i][1]
+        return count
+Time Complexity - O(NlogN)
+Space Complexity - O(1)
+
