@@ -1,4 +1,6 @@
 """
+Problem - https://leetcode.com/problems/partition-equal-subset-sum/description/
+
 Given an integer array nums, return true if you can partition the array into two subsets 
 such that the sum of the elements in both subsets is equal or false otherwise.
 
@@ -12,6 +14,35 @@ Explanation: The array can be partitioned as [1, 5, 5] and [11].
 """
 dp[ind][tareget] denotes that, is there exist a subset with sum = target from 0 to ind
 """
+
+#=========   Intial Brute Force(MLE) =============
+
+total = sum(nums)
+memo = {}
+
+if total%2 != 0:
+    return False
+
+def can_partition(ind,rem):
+
+    if rem==0:
+        return True
+
+    if ind>=len(nums) or rem<0:
+        return False   
+                 
+    if (ind,rem) in memo:
+        return memo[(ind,rem)]
+    
+    n = can_partition(ind+1,rem)
+    t = can_partition(ind+1,rem-nums[ind])
+
+    memo[(ind,rem)] =  n or t
+    return  memo[(ind,rem)] 
+
+return can_partition(0,total//2)
+
+
 def canPartition(self, nums: List[int]) -> bool:
 
     s = sum(nums)
