@@ -132,3 +132,28 @@ class Solution:
 Time Complexity - O(N*target)
 Space Complexity - O(target)
 
+#===== a slite condiiton varition To avoid negative values =====
+
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+
+        total = sum(nums)
+        if total%2:
+            return False
+
+        n = len(nums)
+        target = total//2
+        dp = [False]*(target+1)
+
+        dp[0] = True
+
+        for i in range(n):
+            for rem_s in range(target,nums[i]-1,-1):
+
+                take =  dp[rem_s-nums[i]]
+                dt = dp[rem_s]
+                dp[rem_s] = dt or take
+        
+        return dp[target]
+        
+
