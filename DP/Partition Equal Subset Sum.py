@@ -69,3 +69,66 @@ def canPartition(self, nums: List[int]) -> bool:
         return dp[ind][target]
       
     return get_partion(n-1,target)
+
+
+#================ 2D DP Appraoch ================
+
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+
+        total = sum(nums)
+        if total%2:
+            return False
+
+        n = len(nums)
+        target = total//2
+        dp = [[False]*(target+1) for _ in range(n)]
+        
+        for i in range(n):
+            dp[i][0] = True
+
+        for i in range(1,n):
+            for rem_s in range(target,-1,-1):
+                take = False
+                dt = False
+                
+                if i-1>=0 and rem_s>=nums[i]:
+                    take =  dp[i-1][rem_s-nums[i]]
+                if i-1>=0:
+                    dt = dp[i-1][rem_s]
+                    
+                dp[i][rem_s] = dt or take
+        
+        return dp[n-1][target]
+        
+Time Complexity - O(n*target)
+Space Complexity - O(n*target)
+
+#================= Space Optimized Approach ================
+
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+
+        total = sum(nums)
+        if total%2:
+            return False
+
+        n = len(nums)
+        target = total//2
+        dp = [False]*(target+1)
+
+        dp[0] = True
+
+        for i in range(n):
+            for rem_s in range(target,-1,-1):
+                take = False                
+                if rem_s>=nums[i]:
+                    take =  dp[rem_s-nums[i]]
+                dt = dp[rem_s]
+                dp[rem_s] = dt or take
+        
+        return dp[target]
+
+Time Complexity - O(N*target)
+Space Complexity - O(target)
+
