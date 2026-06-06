@@ -53,5 +53,31 @@ class Solution:
                 temp[s-num] = temp.get(s-num,0)+cnt
             counter = temp
         return counter.get(target,0)
-    Time Complexity - (n*(2*totalsum)) (Total positive and negative numbers too)
-    Space Complexity - O(n*2*totalsum) 
+        
+Time Complexity - (n*(2*totalsum)) (Total positive and negative numbers too)
+Space Complexity - O(n*2*totalsum) 
+
+#================== 1D Optimized Approach =====================
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+
+        ts = sum(nums)
+        tar = (ts+target)//2
+
+        if (ts+target)%2 or ts+target<0:
+            return 0
+        
+        dp = [0]*(tar+1)
+        dp[0] = 1
+
+        for num in nums:
+            for s in range(tar,-1,-1):
+                if s>=num:
+                    dp[s] += dp[s-num]
+
+        return dp[tar]
+        
+Time Complexity - O(n*tar)
+Space Complexity - O(target)
+    
