@@ -39,5 +39,19 @@ class Solution:
 # Space Compexity - O(n*target)
         
         
+#=========== Counter Approach (Tracks All possible sum from previous states)============
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
 
+        counter = {0:1}
 
+        for num in nums:
+            temp = {}
+
+            for s,cnt in counter.items():
+                temp[s+num] = temp.get(s+num,0)+cnt
+                temp[s-num] = temp.get(s-num,0)+cnt
+            counter = temp
+        return counter.get(target,0)
+    Time Complexity - (n*(2*totalsum)) (Total positive and negative numbers too)
+    Space Complexity - O(n*2*totalsum) 
