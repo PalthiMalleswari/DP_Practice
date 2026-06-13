@@ -1,6 +1,34 @@
 # Question - https://leetcode.com/problems/coin-change-ii/description/
 
-# Solution
+# Solution1
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        
+        n = len(coins)
+
+        dp = [[-1]*(amount+1) for _ in range(n)]
+        def calculate_coins(ind,target):
+
+            if target == 0:
+                return 1
+            if ind>=n:
+                return 0
+            if dp[ind][target] != -1:
+                return dp[ind][target]
+
+            cnt = 0
+            for i in range(ind,n):
+                if coins[i]<=target:
+                    cnt += calculate_coins(i,target-coins[i])
+            
+            dp[ind][target] = cnt
+            return dp[ind][target]
+
+        return calculate_coins(0,amount)
+
+Time Complexity - O(n*amount)+Recursive Stack Space
+Space Complexity - O(n*amount)
+#--------------------------------------------------------------------
 
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
