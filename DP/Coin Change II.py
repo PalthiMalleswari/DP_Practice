@@ -67,3 +67,60 @@ class Solution:
 
 ## Time Complexity  - O(amount*len(Coins))
 ##  Space Complexity - O(amount*n)  For dp array 
+
+#=================== 2D Memorization ==========================
+
+        n = len(coins)
+
+        dp = [[0]*(amount+1) for _ in range(n+1)]
+
+        for i in range(n+1):
+            dp[i][0] = 1
+
+        for i in range(1,n+1):
+
+            for amt in range(amount+1):
+                dp[i][amt] = dp[i-1][amt]
+                if amt >= coins[i-1]:
+                    dp[i][amt] += dp[i][amt-coins[i-1]]
+
+        return dp[n][amount]
+        
+Time Complexity - O(n*amount)
+Space Complexity - O(n*amount)
+
+#=================  Space Optimization ================
+        n = len(coins)
+
+        dp = [0]*(amount+1)
+
+        dp[0] = 1
+        for i in range(1,n+1):
+            temp = [0]*(amount+1)
+            for amt in range(amount+1):
+                temp[amt] = dp[amt]
+                if amt >= coins[i-1]:
+                    temp[amt] += temp[amt-coins[i-1]]
+            dp=temp
+
+        return dp[amount]
+
+Time Complexity - O(n*amount)
+Space Complexity - O(n*amount) for each coin, we're taking temp array 
+
+#=================== Most Optimal Approach ===============
+
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        
+        n = len(coins)
+        dp = [0]*(amount+1)
+
+        dp[0] = 1
+        for coin in coins:
+            for amt in range(coin,amount+1):                
+                dp[amt] += dp[amt-coin]
+        return dp[amount]
+
+Time Complexity - O(N*amount)
+Space Complexity - O(N)
