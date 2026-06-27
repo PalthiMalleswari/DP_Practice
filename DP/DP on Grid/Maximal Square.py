@@ -28,3 +28,32 @@ Time Complexity - O(M*N)
 Space Complexity - O(M*N)
 
 We Optimize the space because current state only depends on previous row, and current row we don't have to store all previous rows
+
+
+#================ Space Optimization ================
+
+dp = [0]*m
+
+        for i in range(n):
+            prev_diag = 0
+
+            for j in range(m):
+
+                tmp = dp[j]
+
+                if matrix[i][j] == '1':
+                    if i==0 or j ==0:
+                        dp[j] = 1
+                    else:
+                        dp[j] = min(dp[j],dp[j-1],prev_diag)+1
+
+                    ans = max(ans,dp[j])
+                else:
+                    dp[j] = 0
+
+                prev_diag = tmp
+            
+        return ans*ans
+
+Time Complexity - O(M*N)
+Space Complexity - O(M)
