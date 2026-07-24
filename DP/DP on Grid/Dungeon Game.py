@@ -1,7 +1,7 @@
 #Problem - https://leetcode.com/problems/dungeon-game/description/
-
 #Refer Solution -  https://leetcode.com/problems/dungeon-game/solutions/745340/post-dedicated-to-beginners-of-dp-or-hav-whjg/
 
+# state needs to be - Minimum health required before entering cell (i,j) so that you can safely reach the princess.
 #============== Memorization Approach =================
 
 class Solution:
